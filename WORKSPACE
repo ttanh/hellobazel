@@ -18,11 +18,21 @@ http_archive(
     ],
 )
 
+http_archive(
+    name = "com_google_protobuf",
+    sha256 = "9748c0d90e54ea09e5e75fb7fac16edce15d2028d4356f32211cfa3c0e956564",
+    strip_prefix = "protobuf-3.11.4",
+    urls = ["https://github.com/protocolbuffers/protobuf/archive/v3.11.4.zip"],
+)
+
 load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
 load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
+load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
 
 go_rules_dependencies()
 
 go_register_toolchains(version = "1.15.5")
 
 gazelle_dependencies()
+
+protobuf_deps()

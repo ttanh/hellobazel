@@ -1,8 +1,11 @@
-load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
 
 go_library(
     name = "calc-service_lib",
-    srcs = ["main.go"],
+    srcs = [
+        "calc.go",
+        "main.go",
+    ],
     importpath = "github.com/ttanh/hellobazel/packages/calc-service",
     visibility = ["//visibility:private"],
 )
@@ -11,4 +14,10 @@ go_binary(
     name = "calc-service",
     embed = [":calc-service_lib"],
     visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "calc-service_test",
+    srcs = ["calc_test.go"],
+    embed = [":calc-service_lib"],
 )
